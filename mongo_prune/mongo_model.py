@@ -1,21 +1,22 @@
 import os
+from typing import Optional
 from pymongo import MongoClient
 from pymongo.collection import Collection
 from pymongo.database import Database
 
 
 class MongoConnector:
-    mongo_uri: str
-    mongo_db: str
-    mongo_coll: str
+    mongo_uri: Optional[str]
+    mongo_db: Optional[str]
+    mongo_coll: Optional[str]
     client: MongoClient
     db: Database
     collection: Collection
 
     def __init__(self):
-        self.mongo_uri: str = os.getenv("MONGO_URI")
-        self.mongo_db: str = os.getenv("MONGO_DB")
-        self.mongo_coll: str = os.getenv("MONGO_COLL")
+        self.mongo_uri = os.getenv("MONGO_URI")
+        self.mongo_db = os.getenv("MONGO_DB")
+        self.mongo_coll = os.getenv("MONGO_COLL")
 
         missing = [
             var
@@ -31,6 +32,6 @@ class MongoConnector:
                 f"Missing environment variables: {', '.join(missing)}"
             )
 
-        self.client: MongoClient = MongoClient(self.mongo_uri)
-        self.db: Database = self.client[self.mongo_db]
-        self.collection: Collection = self.db[self.mongo_coll]
+        self.client = MongoClient(self.mongo_uri)  # type: ignore
+        self.db = self.client[self.mongo_db]  # type: ignore
+        self.collection = self.db[self.mongo_coll]  # type: ignore
