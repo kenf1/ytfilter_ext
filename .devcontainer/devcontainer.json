@@ -1,0 +1,28 @@
+{
+	"name": "Existing Dockerfile",
+	"build": {
+		"context": "..",
+		"dockerfile": "./Dev.dockerfile"
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python",
+				"charliermarsh.ruff",
+				"christian-kohler.path-intellisense",
+				"formulahendry.code-runner",
+				"kevinrose.vsc-python-indent",
+				"njpwerner.autodocstring",
+				"gxl.git-graph-3",
+				"esbenp.prettier-vscode"
+			],
+			"settings": {
+				"editor.formatOnSave": true,
+				"code-runner.enableAppInsights": false,
+				"chat.mcp.enabled": false,
+				"telemetry.editStats.enabled": false,
+				"telemetry.feedback.enabled": false
+			}
+		}
+	}
+}
