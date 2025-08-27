@@ -1,16 +1,11 @@
-from models.channel import Channels
-from data.channels import import_channels_json, channel_rss_url
-from data.feed import get_xml
+from models.feed import VideoEntries
+from data.export import get_xml_wrapper
+from models.feed import print_video_entry
 
 
 def main():
-    channels: Channels = import_channels_json("./data/channels_example.json")
-    # print(channels[0].channel_name, channels[0].channel_id)
-
-    if channels[0].channel_id:
-        url: str = channel_rss_url(channels[0].channel_id)
-        raw_xml: str = get_xml(url)
-        print(raw_xml)
+    video_entries: VideoEntries = get_xml_wrapper("./data/channels_example.json")
+    print_video_entry(video_entries[0])
 
 
 if __name__ == "__main__":
