@@ -1,0 +1,1 @@
+VIDEO_ENTRY_EXPIRY_TIME: int = 7 * 24 * 60 * 60

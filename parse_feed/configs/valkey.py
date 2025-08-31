@@ -12,7 +12,7 @@ def create_valkey_client() -> valkey.Valkey:
         raise ValueError("Missing VALKEY_URI")
 
 
-def test_valkey_connection():
+def test_valkey_connection() -> None:
     try:
         # todo: create client outside function
         client: Valkey = create_valkey_client()

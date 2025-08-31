@@ -1,5 +1,4 @@
 import json
-from dataclasses import asdict
 from typing import Any, List, Optional
 import re
 
@@ -28,16 +27,11 @@ def get_xml_wrapper(channels_json: str, filters_json: str) -> VideoEntries:
 
 
 # default index 0
-def get_xml_wrapper_debug(video_entries: VideoEntries):
+def get_xml_wrapper_debug(video_entries: VideoEntries) -> None:
     if len(video_entries) > 0:
         print_video_entry(video_entries[0])
     else:
         print("Empty list")
-
-
-# convert VideoEntries from get_xml_wrapper to json (valkey upload prep)
-def videoentries_convert_json(video_entries: VideoEntries):
-    return json.dumps([asdict(e) for e in video_entries], indent=2)
 
 
 def import_filters_json(filepath: str) -> Filters:
@@ -50,7 +44,7 @@ def videos_filter_title(
     entries: VideoEntries,
     keep_filters: Optional[List[str]] = None,
     drop_filters: Optional[List[str]] = None,
-):
+) -> VideoEntries:
     drop_filters_lower: List[str] = (
         [f.lower() for f in drop_filters] if drop_filters else []
     )
