@@ -1,8 +1,12 @@
 {
     "keep": [
-        "Game Highlights",
-        "Preseason",
-        "Postseason"
+        "\\b\\d{4}\\b Preseason Week \\d+\\b Game Highlights",
+        "\\b\\d{4}\\b Week \\d+\\b Game Highlights",
+        "Divisional Round",
+        "AFC Championship",
+        "NFC Championship"
     ],
-    "drop": []
+    "drop": [
+        "Game Preview"
+    ]
 }
