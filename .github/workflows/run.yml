@@ -1,0 +1,36 @@
+name: Run mongo_prune
+
+on:
+  push:
+    paths:
+      - prod/Prune.dockerfile
+      - setup/mongo_prune_requirements.txt
+  schedule:
+    - cron: "0 0 * * 6"
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    env:
+      MONGO_URI: ${{ secrets.MONGO_URI }}
+      MONGO_DB: ${{ secrets.MONGO_DB }}
+      MONGO_COLL: ${{ secrets.MONGO_COLL }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build image
+        run: docker build -t mongo_prune:latest -f ./prod/Prune.dockerfile .
+
+      - name: Run container
+        run: |
+          docker run --rm \
+            -e MONGO_URI="${MONGO_URI}" \
+            -e MONGO_DB="${MONGO_DB}" \
+            -e MONGO_COLL="${MONGO_COLL}" \
+            mongo_prune:latest
