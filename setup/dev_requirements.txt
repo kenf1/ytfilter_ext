@@ -3,3 +3,5 @@ dotenv
 pymongo
 requests
 valkey
+streamlit
+polars
