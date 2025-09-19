@@ -16,6 +16,7 @@ jobs:
       MONGO_URI: ${{ secrets.MONGO_URI }}
       MONGO_DB: ${{ secrets.MONGO_DB }}
       MONGO_COLL: ${{ secrets.MONGO_COLL }}
+      OTEL_DSN_VALUE: ${{ secrets.OTEL_DSN_VALUE }}
 
     steps:
       - name: Checkout code
@@ -33,4 +34,5 @@ jobs:
             -e MONGO_URI="${MONGO_URI}" \
             -e MONGO_DB="${MONGO_DB}" \
             -e MONGO_COLL="${MONGO_COLL}" \
+            -e OTEL_DSN_VALUE="${OTEL_DSN_VALUE}" \
             mongo_prune:latest
