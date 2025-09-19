@@ -4,7 +4,7 @@ from valkey import Valkey
 from typing import List, Dict
 
 from models.feed import VideoEntries
-from configs.consts import VIDEO_ENTRY_EXPIRY_TIME
+from configs.consts import VIDEO_ENTRY_EXPIRY_TIME_SECONDS
 
 
 # create valkey entry (key = videoId, value = video entry as json), allow O(1) lookup by videoId
@@ -40,7 +40,9 @@ def write_valkeydb(valkey_client: Valkey, video_entries: VideoEntries) -> None:
         raise RuntimeError(f"Failed to set videoids list: {response}")
 
     for video_id, video_json in videos_dict.items():
-        response = valkey_client.set(video_id, video_json, ex=VIDEO_ENTRY_EXPIRY_TIME)
+        response = valkey_client.set(
+            video_id, video_json, ex=VIDEO_ENTRY_EXPIRY_TIME_SECONDS
+        )
         if response not in ("OK", True):
             raise RuntimeError(
                 f"Failed to set video entry for key {video_id}: {response}"

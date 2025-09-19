@@ -1,1 +1,1 @@
-VIDEO_ENTRY_EXPIRY_TIME: int = 7 * 24 * 60 * 60
+VIDEO_ENTRY_EXPIRY_TIME_SECONDS: int = 7 * 24 * 60 * 60  # 7 days
