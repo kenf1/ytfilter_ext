@@ -10,7 +10,7 @@ def setup_otel_logging() -> None:
 
     uptrace.configure_opentelemetry(
         dsn=dsn_value,
-        service_name="ytfilter_ext mongo_prune",
+        service_name="ytfilter_ext query",
         service_version="1.0.0",
         logging_level=logging.INFO,  # debug is lowest, need set in main too
     )
