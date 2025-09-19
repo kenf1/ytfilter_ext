@@ -1,6 +1,7 @@
 dotenv
 pymongo
 requests
+uptrace
 opentelemetry-api
 opentelemetry-sdk
 opentelemetry-exporter-otlp
