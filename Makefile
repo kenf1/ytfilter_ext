@@ -1,4 +1,7 @@
-.PHONY: fmt clean
+.PHONY: runsl fmt clean
+
+runsl: #Run streamlit app
+	cd streamlit_page && streamlit run app.py
 
 fmt: #Format
 	ruff format
