@@ -1,7 +1,6 @@
-FROM python:3.13.7-slim
+FROM python:3.14.0-slim
 
 RUN python3 -m pip install --upgrade pip
-
 COPY ./setup/mongo_prune_requirements.txt ./requirements.txt
 RUN pip install --no-cache-dir -r ./requirements.txt
 

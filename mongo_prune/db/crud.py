@@ -10,14 +10,13 @@ logger = logging.getLogger(__name__)
 
 def get_mongo_connector() -> MongoConnector:
     load_dotenv()  # todo: remove and test
-    logger.info("Creating MongoConnector instance")
+    logger.debug("Creating MongoConnector instance")
     return MongoConnector()
 
 
 def dbquery(mongo: MongoConnector) -> None:
     try:
-        logger.info(f"Successfully connected to collection: {mongo.collection.name}")
-        print("Successfully connected to:", mongo.collection)
+        logger.debug(f"Successfully connected to collection: {mongo.collection.name}")
 
         videos = []
         for doc in mongo.collection.find({}):
