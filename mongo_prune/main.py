@@ -1,5 +1,4 @@
-from db.crud import get_mongo_connector, dbquery, dbprune
-from models.mongo_model import MongoConnector
+from db.crud import VideoDatabaseManager
 from configs.otel_setup import setup_otel_logging
 import logging
 from dotenv import load_dotenv
@@ -10,21 +9,19 @@ if __name__ == "__main__":
 
     setup_otel_logging()
     logger = logging.getLogger()
-    logger.setLevel(logging.INFO)
-
-    mongo_conn: MongoConnector = get_mongo_connector()
+    manager = VideoDatabaseManager()
 
     try:
         logger.info("Starting database query")
-        dbquery(mongo_conn)
+        manager.dbquery()
         logger.info("Database query completed")
 
         logger.info("Starting database prune")
-        dbprune(mongo_conn)
+        manager.dbprune()
         logger.info("Database prune completed")
     finally:
         logger.info("Closing MongoDB connection")
-        mongo_conn.client.close()
+        manager.mongo.client.close()
         logger.info("MongoDB connection closed")
 
     logger.info("Main complete")

@@ -1,31 +1,37 @@
 import os
 from dotenv import load_dotenv
 from dataclasses import asdict
-import streamlit as sl
+import streamlit as st
 
 from parse_feed.data.feed_response import get_xml_wrapper
 from parse_feed.models.feed import VideoEntries
 
-load_dotenv()
-status: str = os.getenv("STATUS", "prod")
 
-video_entries: VideoEntries = get_xml_wrapper(
-    channels_json="./data/channels_example.json",
-    filters_json="./data/filters_example.json",
-)
+def main() -> None:
+    load_dotenv()
+    environment = os.getenv("STATUS", "prod")
 
-sl.title("Video Entries Dashboard")
-sl.write(f"Environment status: {status}")
+    st.title("🎬 Video Entries Dashboard")
+    st.caption(f"Environment: **{environment}**")
 
-dict_entries = [asdict(entry) for entry in video_entries]
+    video_entries: VideoEntries = get_xml_wrapper(
+        channels_json="./data/channels_example.json",
+        filters_json="./data/filters_example.json",
+    )
 
-sl.subheader("Raw Video Entries (JSON)")
-sl.json(dict_entries, expanded=False)  # Collapsed view
+    entry_dicts = [asdict(entry) for entry in video_entries]
 
-sl.subheader("Tabular View")
-sl.dataframe(dict_entries)
+    st.subheader("Raw Video Entries (JSON)")
+    st.json(entry_dicts, expanded=False)
 
-sl.subheader("Detail for Each Entry")
-for i, entry in enumerate(video_entries):
-    with sl.expander(f"Video #{i + 1}: {entry.title or '(untitled)'}"):
-        sl.write(entry)
+    st.subheader("Tabular View")
+    st.dataframe(entry_dicts)
+
+    st.subheader("Detailed Entries")
+    for i, entry in enumerate(video_entries, start=1):
+        with st.expander(f"Video {i}: {entry.title or '(Untitled)'}"):
+            st.write(entry)
+
+
+if __name__ == "__main__":
+    main()
