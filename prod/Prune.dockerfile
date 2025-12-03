@@ -1,4 +1,4 @@
-FROM python:3.14.0-slim
+FROM ghcr.io/kenf1/devimage:pyslimslim
 
 RUN python3 -m pip install --upgrade pip
 COPY ./setup/mongo_prune_requirements.txt ./requirements.txt
